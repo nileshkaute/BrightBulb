@@ -41,17 +41,17 @@ const ShowcaseVideo = () => {
   };
 
   return (
-    <div className="py-20 bg-black text-white min-h-[750px]">
+    <div className="py-15 bg-black text-white min-h-[750px]">
       {/* Section Heading */}
       <h1 className="text-4xl underline font-bold text-center mb-16">
         Experience the Glow
       </h1>
 
       {/* Video Section */}
-      <div className="flex flex-wrap justify-center gap-10 max-w-7xl mx-auto px-4 sm:px-8">
+      <div className="flex flex-wrap justify-center gap-12 max-w-7xl mx-auto px-2 sm:px-8">
         {/* Left side */}
         <motion.div
-          className="flex flex-col md:flex-row gap-8 items-center text-center md:text-left"
+          className="flex flex-col md:flex-row gap-10 items-center text-center md:text-left"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
@@ -70,30 +70,33 @@ const ShowcaseVideo = () => {
             />
           </motion.div>
 
-          {/* Text appears after cards */}
-          <motion.h1
-            variants={fadeUp}
-            className="text-2xl sm:text-3xl md:text-4xl italic text-gray-300 mt-6 md:mt-0"
-          >
-            When darkness dreams of beauty.
-          </motion.h1>
+      <motion.div variants={fadeLeft}>
+  <VideoCard
+    videoSrc="video/video3.mp4"
+    caption="Color Your Mood"
+   className="w-64 h-48 sm:w-72 sm:h-56 md:w-80 md:h-80 lg:w-140 lg:h-80"
+ // Increased width & height only for this card
+  />
+</motion.div>
+
         </motion.div>
 
         {/* Right side */}
         <motion.div
-          className="flex flex-col md:flex-row gap-8 items-center text-center md:text-left"
+          className="flex flex-col md:flex-row gap-10 items-center text-center md:text-left"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.4 }}
           transition={{ staggerChildren: 0.4 }}
         >
           {/* Text appears after cards */}
-          <motion.h1
-            variants={fadeDown}
-            className="text-2xl sm:text-3xl md:text-4xl italic text-gray-300 mb-6 md:mb-0"
-          >
-            The light answers with grace.
-          </motion.h1>
+       <motion.div variants={fadeRight}>
+            <VideoCard
+              videoSrc="video/video4.mp4"
+              caption="Design Meets Brilliance"
+              className="w-64 h-48 sm:w-72 sm:h-56 md:w-80 md:h-80 lg:w-140 lg:h-80" // Increased width & height only for this card
+            />
+          </motion.div>
 
           <motion.div variants={fadeRight}>
             <VideoCard
@@ -107,6 +110,8 @@ const ShowcaseVideo = () => {
               caption="Design Meets Brilliance"
             />
           </motion.div>
+
+           
         </motion.div>
       </div>
     </div>

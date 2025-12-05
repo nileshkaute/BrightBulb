@@ -71,8 +71,8 @@ export default function Navbar() {
           <Link to="/" className="hover:underline">
             Home
           </Link>
-          <Link to="/shop" className="hover:underline">
-            Shop
+          <Link to="/product" className="hover:underline">
+            Products
           </Link>
           <Link to="/about" className="hover:underline">
             About

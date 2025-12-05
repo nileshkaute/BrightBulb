@@ -55,7 +55,7 @@ const WhyChoose = () => {
           animation={fadeRight}
         />
       </div>
-       <p className='text-gray-700 text-center w-[50%] mt-20 font-semibold '>Choosing us means choosing a greener tomorrow. Every product we create is designed to reduce energy consumption while enhancing your lifestyle. From sustainable materials to long-lasting brightness, we promise innovation that’s kind to the planet — and easy on your wallet.</p>
+  <p className='text-gray-700 text-center w-full md:w-1/2 mt-20 font-semibold px-4'>Choosing us means choosing a greener tomorrow. Every product we create is designed to reduce energy consumption while enhancing your lifestyle. From sustainable materials to long-lasting brightness, we promise innovation that’s kind to the planet — and easy on your wallet.</p>
     </section>
   )
 }

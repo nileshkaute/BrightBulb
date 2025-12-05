@@ -3,3 +3,8 @@
 .no-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari */
 }
+
+/* Prevent any page-level horizontal overflow without changing visuals */
+html, body {
+  overflow-x: hidden;
+}
