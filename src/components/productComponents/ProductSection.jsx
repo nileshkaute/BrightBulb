@@ -13,7 +13,7 @@ const ProductSection = () => {
                 transition={{ duration: 1, delay: 1 }}
             >
                 <h1 className="text-gray-900 text-4xl font-bold underline mb-6 mt-5">
-                    Featured Products
+                    Our Products
                 </h1>
                 <p className="text-gray-700">
                     The future of light is here — and it’s glowing in your home.
@@ -58,12 +58,7 @@ const ProductSection = () => {
                         price="1299"
                     />
 
-                    <Card
-                        title="Night Bulb"
-                        src="https://images.unsplash.com/photo-1522202222061-3c11d0a1b8a8?auto=format&fit=crop&q=60&w=600"
-                        description="Compact night bulb with gentle illumination — ideal for bedrooms."
-                        price="199"
-                    />
+                  
                 </div>
             </motion.div>
         </div>
