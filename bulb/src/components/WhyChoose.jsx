@@ -1,63 +1,108 @@
-import React from 'react'
-import Cards from './Cards'
-import { Zap, Activity, Sprout, Component } from 'lucide-react';
+import React from "react";
+import { motion } from "framer-motion";
+import { Zap, Activity, Sprout, Cpu, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+
+const features = [
+  {
+    icon: Zap,
+    title: "Energy Efficient",
+    description: "Save up to 80% on your electricity bill. Our LEDs last 25x longer than incandescent bulbs.",
+    color: "from-yellow-500/20 to-amber-500/10",
+    border: "border-yellow-500/30 hover:border-yellow-400",
+    iconColor: "text-yellow-400",
+  },
+  {
+    icon: Activity,
+    title: "Long Lifespan",
+    description: "Built to last 25,000+ hours with premium-grade components and rigorous quality testing.",
+    color: "from-amber-500/20 to-orange-500/10",
+    border: "border-amber-500/30 hover:border-amber-400",
+    iconColor: "text-amber-400",
+  },
+  {
+    icon: Sprout,
+    title: "Eco-Friendly",
+    description: "Zero mercury, recyclable packaging, and sustainably-sourced materials in every product.",
+    color: "from-green-500/20 to-emerald-500/10",
+    border: "border-green-500/30 hover:border-green-400",
+    iconColor: "text-green-400",
+  },
+  {
+    icon: Cpu,
+    title: "Smart Control",
+    description: "Wi-Fi enabled and compatible with Alexa, Google Home, and Apple HomeKit out of the box.",
+    color: "from-blue-500/20 to-indigo-500/10",
+    border: "border-blue-500/30 hover:border-blue-400",
+    iconColor: "text-blue-400",
+  },
+];
 
 const WhyChoose = () => {
-  const fadeLeft = {
-    hidden: { opacity: 0, x: -80 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 1, ease: "easeOut" },
-    },
-  };
-
-  const fadeRight = {
-    hidden: { opacity: 0, x: 80 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 1, ease: "easeOut" },
-    },
-  };
-
   return (
-    <section className="bg-linear-to-r from-yellow-400 to-amber-600 py-24 flex flex-col items-center min-h-[700px]"
+    <section className="bg-gray-950 py-28 px-6">
+      <div className="max-w-6xl mx-auto">
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="text-center mb-16"
+        >
+          <span className="text-amber-400 text-sm font-semibold uppercase tracking-widest">
+            ✦ Why BrightBulb
+          </span>
+          <h2 className="text-4xl md:text-5xl font-black text-white mt-3">
+            Why Choose Us?
+          </h2>
+          <p className="text-gray-400 mt-4 max-w-xl mx-auto">
+            Choosing BrightBulb means choosing a greener tomorrow. Innovation that's kind to the
+            planet — and easy on your wallet.
+          </p>
+        </motion.div>
 
-    >
-      <h1 className="text-gray-900 underline text-3xl font-bold mb-16 mt-8 text-center">
-        Why Choose Us?
-      </h1>
-     
-      <div className="flex flex-wrap justify-center gap-12 w-full max-w-6xl px-5">
-        <Cards
-          title="Energy Efficient"
-          description="Save up to 80% energy with our smart LED design."
-          icon={Zap}
-          animation={fadeLeft}
-        />
-        <Cards
-          title="Long Lifespan"
-          description="Built to last with high-quality components for longer use."
-          icon={Activity}
-          animation={fadeLeft}
-        />
-        <Cards
-          title="Eco-Friendly"
-          description="Sustainable materials that reduce environmental impact."
-          icon={Sprout}
-          animation={fadeRight}
-        />
-        <Cards
-          title="Modern Design"
-          description="Sleek and minimalistic design that suits any home decor."
-          icon={Component}
-          animation={fadeRight}
-        />
+        {/* Feature Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {features.map((f, i) => {
+            const Icon = f.icon;
+            return (
+              <motion.div
+                key={f.title}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className={`bg-gradient-to-br ${f.color} border ${f.border} rounded-2xl p-7 transition-all duration-300 group`}
+              >
+                <div className={`${f.iconColor} mb-5 group-hover:scale-110 transition-transform`}>
+                  <Icon size={36} />
+                </div>
+                <h3 className="text-white font-bold text-xl mb-3">{f.title}</h3>
+                <p className="text-gray-400 text-sm leading-relaxed">{f.description}</p>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Bottom CTA */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.5 }}
+          className="text-center mt-14"
+        >
+          <Link
+            to="/about"
+            className="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-semibold transition-colors"
+          >
+            Learn more about us <ArrowRight size={18} />
+          </Link>
+        </motion.div>
       </div>
-  <p className='text-gray-700 text-center w-full md:w-1/2 mt-20 font-semibold px-4'>Choosing us means choosing a greener tomorrow. Every product we create is designed to reduce energy consumption while enhancing your lifestyle. From sustainable materials to long-lasting brightness, we promise innovation that’s kind to the planet — and easy on your wallet.</p>
     </section>
-  )
-}
+  );
+};
 
-export default WhyChoose
+export default WhyChoose;

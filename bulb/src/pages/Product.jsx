@@ -1,34 +1,55 @@
-import React, { useState } from 'react'
-import Filter from '../components/productComponents/Filter'
-import Divider from '../components/Divider'
-import ProductHero from '../components/productComponents/ProductHero'
-import ProductSection from '../components/productComponents/ProductSection'
+import React, { useState } from "react";
+import Filter from "../components/productComponents/Filter";
+import Divider from "../components/Divider";
+import ProductHero from "../components/productComponents/ProductHero";
+import ProductSection from "../components/productComponents/ProductSection";
+import Footer from "../components/Footer";
 
 const Product = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState("All");
 
   return (
-    <>
-      <div className="bg-linear-to-r from-amber-600 to-yellow-400 w-full min-h-screen">
-        {/* Hero Section */}
-        <ProductHero /> 
+    <div className="bg-black w-full min-h-screen">
+      {/* Hero Section */}
+      <ProductHero />
 
-        {/* Main Content: Filter + Products */}
-        <div className="flex gap-6 px-6 mt-6">
+      <Divider />
+
+      {/* Count + Layout */}
+      <div className="max-w-7xl mx-auto px-6 py-10">
+        <div className="flex gap-6 items-start">
           {/* Sidebar Filter */}
-          <div className="w-1/4">
-            <Filter selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
+          <div className="w-56 shrink-0 hidden md:block">
+            <Filter
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+            />
           </div>
 
-          {/* Product Section */}
-          <div className="w-3/4">
+          {/* Mobile filter row */}
+          <div className="md:hidden w-full mb-4">
+            <Filter
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+            />
+          </div>
+
+          {/* Product Grid */}
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-2 px-6">
+              <h2 className="text-white font-bold text-xl">
+                {selectedCategory === "All" ? "All Products" : selectedCategory}
+              </h2>
+            </div>
             <ProductSection selectedCategory={selectedCategory} />
           </div>
         </div>
       </div>
-    </>
-  )
-}
 
-export default Product
+      <Divider />
+      <Footer />
+    </div>
+  );
+};
 
+export default Product;
