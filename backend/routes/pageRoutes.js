@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../middleware/authMiddleware");
+const { protect, admin } = require("../middleware/authMiddleware");
 const PageContent = require("../models/PageContent");
 
 // Get Page Content by Name (e.g., 'home')
@@ -15,7 +15,7 @@ router.get("/:page", async (req, res) => {
 });
 
 // Admin: Update Page Content
-router.post("/", auth, async (req, res) => {
+router.post("/", protect, admin, async (req, res) => {
   try {
     const { page } = req.body;
     if (!page) return res.status(400).json({ message: "Page name required" });
@@ -23,7 +23,7 @@ router.post("/", auth, async (req, res) => {
     const content = await PageContent.findOneAndUpdate(
       { page },
       req.body,
-      { new: true, upsert: true } // Create if doesn't exist
+      { new: true, upsert: true }, // Create if doesn't exist
     );
     res.json(content);
   } catch (error) {

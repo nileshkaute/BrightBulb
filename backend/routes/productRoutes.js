@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../middleware/authMiddleware");
+const { protect, admin } = require("../middleware/authMiddleware");
 const Product = require("../models/Product");
 
 // Public (Frontend)
@@ -24,7 +24,7 @@ router.get("/featured", async (req, res) => {
 });
 
 // Admin
-router.post("/", auth, async (req, res) => {
+router.post("/", protect, admin, async (req, res) => {
   try {
     const product = await Product.create(req.body);
     res.json(product);
@@ -33,7 +33,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-router.put("/:id", auth, async (req, res) => {
+router.put("/:id", protect, admin, async (req, res) => {
   try {
     const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -44,7 +44,7 @@ router.put("/:id", auth, async (req, res) => {
   }
 });
 
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/:id", protect, admin, async (req, res) => {
   try {
     await Product.findByIdAndDelete(req.params.id);
     res.json({ message: "Deleted" });

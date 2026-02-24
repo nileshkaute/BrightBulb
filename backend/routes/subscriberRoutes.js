@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const auth = require("../middleware/authMiddleware");
+const { protect, admin } = require("../middleware/authMiddleware");
 const Subscriber = require("../models/Subscriber");
 
 // Start Newsletter Subscription
@@ -22,7 +22,7 @@ router.post("/", async (req, res) => {
 });
 
 // Admin: View all subscribers
-router.get("/", auth, async (req, res) => {
+router.get("/", protect, admin, async (req, res) => {
   try {
     const subscribers = await Subscriber.find();
     res.json(subscribers);
