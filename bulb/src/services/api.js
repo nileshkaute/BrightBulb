@@ -2,27 +2,30 @@ import axios from "axios";
 
 const API_BASE_URL = "http://localhost:5000/api";
 
-// Create axios instance
 const api = axios.create({
   baseURL: API_BASE_URL,
 });
 
-// Add auth token to requests
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("adminToken");
+  const userInfo = localStorage.getItem("userInfo");
+  const adminToken = localStorage.getItem("adminToken");
+
+  // Use adminToken for admin routes if it exists, otherwise use user token
+  const token = userInfo ? JSON.parse(userInfo).token : adminToken;
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
 });
 
-// Auth API
 export const authAPI = {
-  login: (credentials) => api.post("/admin/login", credentials),
-  register: (data) => api.post("/admin/register", data),
+  login: (data) => api.post("/users/login", data),
+  register: (data) => api.post("/users", data),
+  adminLogin: (data) => api.post("/admin/login", data),
+  getProfile: () => api.get("/users/profile"),
 };
 
-// Products API
 export const productsAPI = {
   getAll: () => api.get("/products"),
   getFeatured: () => api.get("/products/featured"),
@@ -31,13 +34,17 @@ export const productsAPI = {
   delete: (id) => api.delete(`/products/${id}`),
 };
 
-// Subscribers API
+export const ordersAPI = {
+  createOrder: (order) => api.post("/orders", order),
+  getById: (id) => api.get(`/orders/${id}`),
+  getMyOrders: () => api.get("/orders/myorders"),
+};
+
 export const subscribersAPI = {
   getAll: () => api.get("/subscribers"),
   subscribe: (email) => api.post("/subscribers", { email }),
 };
 
-// Pages API
 export const pagesAPI = {
   getPage: (pageName) => api.get(`/pages/${pageName}`),
   updatePage: (data) => api.post("/pages", data),
