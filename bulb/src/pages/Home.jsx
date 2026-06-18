@@ -5,7 +5,7 @@ import ShowcaseVideo from "../components/ShowcaseVideo";
 import CallToAction from "../components/CallToAction";
 import Divider from "../components/Divider";
 import WhyChoose from "../components/WhyChoose";
-import Newsletter from "../components/NewsLetter";
+import Newsletter from "../components/Newsletter";
 import Footer from "../components/Footer";
 import Hero from "../components/Hero";
 
