@@ -1,7 +1,7 @@
 import React from "react";
 import { animate, motion } from 'framer-motion';
 import Featured from "../components/Featured";
-import ShowcaseVideo from "../components/showcasevideo";
+import ShowcaseVideo from "../components/ShowcaseVideo";
 import CallToAction from "../components/CallToAction";
 import Divider from "../components/Divider";
 import WhyChoose from "../components/WhyChoose";
