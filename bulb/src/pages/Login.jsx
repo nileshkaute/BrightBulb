@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { LogIn, Mail, Lock, Loader2 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
+import { authAPI } from "../services/api";
 import Navbar from "../components/Navbar";
 
 const Login = () => {
@@ -28,7 +29,13 @@ const Login = () => {
     setError("");
     setLoading(true);
     try {
-      await login(email, password);
+      const response = await authAPI.login({ email, password });
+      if (response.data.isAdmin) {
+        localStorage.setItem("adminToken", response.data.token);
+        navigate("/admin/dashboard");
+      } else {
+        await login(email, password, response.data);
+      }
     } catch (err) {
       setError(err.response?.data?.message || "Invalid email or password");
     } finally {

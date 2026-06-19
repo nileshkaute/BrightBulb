@@ -1,5 +1,7 @@
 const User = require("../models/User");
+const Admin = require("../models/Admin");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -24,9 +26,21 @@ exports.authUser = async (req, res) => {
         isAdmin: user.isAdmin,
         token: generateToken(user._id),
       });
-    } else {
-      res.status(401).json({ message: "Invalid email or password" });
+      return;
     }
+
+    const admin = await Admin.findOne({ email });
+    if (admin && (await bcrypt.compare(password, admin.password))) {
+      res.json({
+        _id: admin._id,
+        email: admin.email,
+        isAdmin: true,
+        token: generateToken(admin._id),
+      });
+      return;
+    }
+
+    res.status(401).json({ message: "Invalid email or password" });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
