@@ -31,8 +31,17 @@ const Checkout = () => {
     setLoading(true);
 
     try {
+      // Transform cart items to match Order schema
+      const transformedItems = cartItems.map((item) => ({
+        name: item.title,
+        qty: item.qty,
+        image: item.imageUrl,
+        price: item.price,
+        product: item.product,
+      }));
+
       const orderData = {
-        orderItems: cartItems,
+        orderItems: transformedItems,
         shippingAddress: { address, city, postalCode, country },
         paymentMethod,
         totalPrice: itemsPrice,
