@@ -16,7 +16,8 @@ const Login = () => {
   const location = useLocation();
   const { login, user } = useAuth();
 
-  const redirect = location.search ? location.search.split("=")[1] : "/";
+  const redirectParam = location.search ? location.search.split("=")[1] : "/";
+  const redirect = redirectParam.startsWith("/") ? redirectParam : `/${redirectParam}`;
 
   useEffect(() => {
     if (user) {
