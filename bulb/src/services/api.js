@@ -15,9 +15,28 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   const userInfo = localStorage.getItem("userInfo");
   const adminToken = localStorage.getItem("adminToken");
+  let requestPath = config.url || "";
 
-  // Use adminToken for admin routes if it exists, otherwise use user token
-  const token = userInfo ? JSON.parse(userInfo).token : adminToken;
+  if (requestPath.startsWith("http://") || requestPath.startsWith("https://")) {
+    try {
+      requestPath = new URL(requestPath).pathname;
+    } catch (error) {
+      requestPath = config.url || "";
+    }
+  }
+
+  const isAdminRequest = [
+    "/admin",
+    "/products",
+    "/subscribers",
+    "/pages",
+  ].some((adminPath) => requestPath.startsWith(adminPath));
+
+  const token = isAdminRequest && adminToken
+    ? adminToken
+    : userInfo
+    ? JSON.parse(userInfo).token
+    : adminToken;
 
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
