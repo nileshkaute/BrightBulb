@@ -1,7 +1,12 @@
 import axios from "axios";
 
 const DEFAULT_PRODUCTION_API_BASE_URL = "https://brightbulb-fvlo.onrender.com/api";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? DEFAULT_PRODUCTION_API_BASE_URL : "http://localhost:5000/api");
+
+const rawApiBaseUrl = import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? DEFAULT_PRODUCTION_API_BASE_URL : "http://localhost:5000/api");
+const normalizedApiBaseUrl = rawApiBaseUrl.replace(/\/+$/, "");
+const API_BASE_URL = normalizedApiBaseUrl.endsWith("/api")
+  ? normalizedApiBaseUrl
+  : `${normalizedApiBaseUrl}/api`;
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -24,6 +29,7 @@ export const authAPI = {
   login: (data) => api.post("/users/login", data),
   register: (data) => api.post("/users", data),
   adminLogin: (data) => api.post("/admin/login", data),
+  adminRegister: (data) => api.post("/admin/register", data),
   getProfile: () => api.get("/users/profile"),
 };
 
