@@ -1,13 +1,17 @@
 const mongoose = require("mongoose");
 
 const connectDB = async () => {
-  if (!process.env.MONGO_URI) {
-    console.error("ERROR: MONGO_URI is not set. Set this environment variable in Render or your .env file.");
+  const mongoURI = process.env.MONGO_URI || process.env.ATLASDB_URL;
+
+  if (!mongoURI) {
+    console.error(
+      "ERROR: MONGO_URI or ATLASDB_URL is not set. Set one of these environment variables in Render or your .env file."
+    );
     process.exit(1);
   }
 
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(mongoURI);
     console.log("MongoDB Connected");
   } catch (err) {
     console.error(err);

@@ -32,7 +32,7 @@ git push origin main
    - `JWT_SECRET` = any secret string for JWT signing
    - `PORT` may be left unset because Render provides it automatically
 
-> Make sure `MONGO_URI` is set on the Render service. If it is missing, the backend will try to connect to `localhost:27017` and fail.
+> Make sure `MONGO_URI` or `ATLASDB_URL` is set on the Render service. If neither is set, the backend will try to connect to `localhost:27017` and fail.
 
 8. Create the service and let Render deploy.
 
